@@ -1,0 +1,37 @@
+<div class="chatbot-page">
+
+    <div class="chatbot-container">
+    <div class="chatbot-header">
+        <h3>Assistant 9antra</h3>
+    </div>
+
+    <div class="chatbot-messages" #messagesContainer>
+        @for (msg of messages$ | async; track $index) {
+        <div class="message" [class.utilisateur]="msg.estUtilisateur" [class.bot]="!msg.estUtilisateur">
+            <div class="bulle" style="white-space: pre-wrap;">
+            {{ msg.texte }}
+            </div>
+        </div>
+        }
+
+        @if (chargement) {
+        <div class="message bot">
+            <div class="bulle chargement">...</div>
+        </div>
+        }
+    </div>
+
+    <div class="chatbot-input">
+        <input
+        type="text"
+        [(ngModel)]="question"
+        (keypress)="onKeyPress($event)"
+        placeholder="Écris ta question..."
+        [disabled]="chargement"
+        />
+        <button (click)="envoyer()" [disabled]="chargement || !question.trim()">
+        Envoyer
+        </button>
+    </div>
+    </div>
+</div>

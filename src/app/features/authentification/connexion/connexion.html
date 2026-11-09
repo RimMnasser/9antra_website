@@ -1,0 +1,37 @@
+<!-- Conteneur principal de la page de connexion -->
+<section class="connexion-container">
+  <!-- Titre de l'espace privé -->
+  <h1>Administration</h1>
+  <p>Connexion administrateur</p>
+
+  <!-- Formulaire de connexion -->
+  <form (ngSubmit)="seConnecter()">
+    <!-- Champ email -->
+    <label for="email">Email</label>
+    <input
+      id="email"
+      type="email"
+      name="email"
+      [(ngModel)]="email"
+      placeholder="admin@admin.com"
+    />
+
+    <!-- Champ mot de passe -->
+    <label for="motDePasse">Mot de passe</label>
+    <input
+      id="motDePasse"
+      type="password"
+      name="motDePasse"
+      [(ngModel)]="motDePasse"
+      placeholder="Votre mot de passe"
+    />
+
+    <!-- Message d'erreur éventuel -->
+    <p class="erreur" *ngIf="erreur">{{ erreur }}</p>
+
+    <!-- Bouton d'envoi du formulaire -->
+    <button type="submit" [disabled]="chargement">
+      {{ chargement ? 'Connexion...' : 'Se connecter' }}
+    </button>
+  </form>
+</section>

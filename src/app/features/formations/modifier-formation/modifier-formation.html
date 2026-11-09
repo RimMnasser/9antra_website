@@ -1,0 +1,47 @@
+<section class="form-page">
+  <div class="form-card">
+    <header class="form-header">
+      <p class="eyebrow">GESTION DES FORMATIONS</p>
+      <h1>Modifier la formation</h1>
+      <p>Mettez à jour les informations de cette formation.</p>
+    </header>
+
+    <form (ngSubmit)="enregistrer()">
+      <div class="form-grid">
+        <div class="champ champ-large">
+          <label for="titre">Titre de la formation</label>
+          <input id="titre" name="titre" type="text" [(ngModel)]="titre" required />
+        </div>
+
+        <div class="champ champ-large">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" [(ngModel)]="description" rows="5"></textarea>
+        </div>
+
+        <div class="champ">
+          <label for="categorie">Catégorie</label>
+          <input id="categorie" name="categorie" type="text" [(ngModel)]="categorie" />
+        </div>
+
+        <div class="champ">
+          <label for="duree">Durée</label>
+          <input id="duree" name="duree" type="text" [(ngModel)]="duree" />
+        </div>
+
+        <div class="champ">
+          <label for="niveau">Niveau</label>
+          <input id="niveau" name="niveau" type="text" [(ngModel)]="niveau" />
+        </div>
+      </div>
+
+      @if (erreur) {
+        <p class="message-erreur">{{ erreur }}</p>
+      }
+
+      <div class="form-actions">
+        <button class="btn-secondaire" type="button" routerLink="/formations">Annuler</button>
+        <button class="btn-principal" type="submit">Enregistrer les modifications</button>
+      </div>
+    </form>
+  </div>
+</section>

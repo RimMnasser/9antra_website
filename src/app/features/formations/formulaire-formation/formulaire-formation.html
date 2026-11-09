@@ -1,0 +1,50 @@
+<section class="form-page">
+  <div class="form-card">
+    <header class="form-header">
+      <p class="eyebrow">GESTION DES FORMATIONS</p>
+      <h1>Nouvelle formation</h1>
+      <p>Ajoutez une formation à votre espace 9ANTRA.</p>
+    </header>
+
+    <form (ngSubmit)="enregistrer()">
+      <div class="form-grid">
+        <div class="champ champ-large">
+          <label for="titre">Titre de la formation</label>
+          <input id="titre" name="titre" type="text" [(ngModel)]="titre" required placeholder="Ex. Formation Angular" />
+        </div>
+
+        <div class="champ champ-large">
+          <label for="description">Description</label>
+          <textarea id="description" name="description" [(ngModel)]="description" rows="5" placeholder="Décrivez le contenu de la formation"></textarea>
+        </div>
+
+        <div class="champ">
+          <label for="categorie">Catégorie</label>
+          <input id="categorie" name="categorie" type="text" [(ngModel)]="categorie" placeholder="Ex. Développement web" />
+        </div>
+
+        <div class="champ">
+          <label for="duree">Durée</label>
+          <input id="duree" name="duree" type="text" [(ngModel)]="duree" placeholder="Ex. 40 heures" />
+        </div>
+
+        <div class="champ">
+          <label for="niveau">Niveau</label>
+          <input id="niveau" name="niveau" type="text" [(ngModel)]="niveau" placeholder="Ex. Débutant" />
+        </div>
+      </div>
+
+      @if (erreur) {
+        <p class="message-erreur">{{ erreur }}</p>
+      }
+
+      <div class="form-actions">
+        
+        <button class="btn-secondaire" type="button" routerLink="/formations">Annuler</button>
+        <button class="btn-principal" type="submit" [disabled]="chargement">
+          {{ chargement ? 'Enregistrement...' : 'Enregistrer la formation' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

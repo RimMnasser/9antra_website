@@ -1,0 +1,114 @@
+<section class="documents-page">
+  <div class="page-header">
+    <div>
+      <p class="sur-titre">GESTION DES FORMATIONS</p>
+      <h2>Documents du cours</h2>
+      <p class="description">
+        Importez et gérez les documents associés à cette formation.
+      </p>
+    </div>
+
+    <a class="btn-retour" routerLink="/formations">
+      Retour aux formations
+    </a>
+  </div>
+
+  @if (message) {
+    <div class="message succes">{{ message }}</div>
+  }
+
+  @if (erreur) {
+    <div class="message erreur">{{ erreur }}</div>
+  }
+
+  <div class="import-card">
+    <h3>Importer un document</h3>
+
+    <label for="fichier">Choisir un fichier</label>
+    <input
+      id="fichier"
+      type="file"
+      accept=".pdf,.doc,.docx,.ppt,.pptx"
+      (change)="selectionnerFichier($event)"
+      (click)="$any($event.target).value = null"
+    />
+
+      @if (nomFichier$ | async; as nom) {
+        @if (nom) {
+          <p class="fichier-selectionne">
+            Fichier sélectionné : <strong>{{ nom }}</strong>
+          </p>
+        }
+      }
+
+      <button
+        type="button"
+        class="btn-principal"
+        (click)="importer()"
+        [disabled]="!(nomFichier$ | async)"
+      >
+        Importer le document
+      </button>
+
+        <small>Formats autorisés : PDF, DOC, DOCX, PPT et PPTX.</small>
+  </div>
+
+  <div class="liste-card">
+    <div class="liste-header">
+      <h3>Documents disponibles</h3>
+      <span class="compteur">{{ documents.length }} document(s)</span>
+    </div>
+
+    @if (chargement) {
+      <p class="etat">Chargement des documents...</p>
+    }
+
+    @if (!chargement && documents.length === 0 && !erreur) {
+      <p class="etat">Aucun document associé à cette formation.</p>
+    }
+
+    @if (!chargement && documents.length > 0) {
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nom du fichier</th>
+              <th>Type</th>
+              <th>Taille</th>
+              <th>Date d’ajout</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @for (document of documents; track document.id) {
+              <tr>
+                <td>{{ document.nom_fichier }}</td>
+                <td>{{ document.type_fichier | uppercase }}</td>
+                <td>{{ document.taille }} octets</td>
+                <td>{{ document.created_at | date:'dd/MM/yyyy HH:mm' }}</td>
+                <td class="actions">
+                  <button
+                    type="button"
+                    class="btn-telecharger"
+                    (click)="telecharger(document.id)"
+                  >
+                    Télécharger
+                  </button>
+
+                  <button
+                    type="button"
+                    class="btn-supprimer"
+                    (click)="supprimer(document.id)"
+                  >
+                    Supprimer
+                  </button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </div>
+</section>
